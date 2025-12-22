@@ -1,0 +1,34 @@
+class Solution {
+    public int pairSum(ListNode head) {
+        // Step 1: Find middle using slow & fast pointers
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse second half of the list
+        ListNode prev = null;
+        while (slow != null) {
+            ListNode nextNode = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        // Step 3: Calculate maximum twin sum
+        int mx = 0;
+        ListNode first = head;
+        ListNode second = prev;
+
+        while (second != null) {
+            mx = Math.max(mx, first.val + second.val);
+            first = first.next;
+            second = second.next;
+        }
+
+        return mx;
+    }
+}
