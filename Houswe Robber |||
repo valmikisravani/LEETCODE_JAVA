@@ -1,0 +1,26 @@
+class Solution {
+    public int rob(TreeNode root) {
+        int[] options = travel(root);
+        return Math.max(options[0], options[1]);
+    }
+
+    public int[] travel(TreeNode node) {
+        if (node == null) {
+            return new int[2]; // {0, 0}
+        }
+
+        int[] left = travel(node.left);
+        int[] right = travel(node.right);
+
+        int[] options = new int[2];
+
+        // options[0] → rob this node
+        options[0] = node.val + left[1] + right[1];
+
+        // options[1] → do not rob this node
+        options[1] = Math.max(left[0], left[1]) + 
+                     Math.max(right[0], right[1]);
+
+        return options;
+    }
+}
