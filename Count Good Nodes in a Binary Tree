@@ -1,0 +1,19 @@
+class Solution {
+    int cnt = 0;
+    public int goodNodes(TreeNode root) {
+        
+        dfs(root, root.val);
+        return cnt;
+    }
+    public void dfs(TreeNode root, int mx){
+        if(root == null){
+            return;
+        }
+        if(root.val >= mx){
+            cnt++;
+        }
+        mx = Math.max(mx, root.val);
+        dfs(root.left, mx);
+        dfs(root.right, mx);
+    }
+}
