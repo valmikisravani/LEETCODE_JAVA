@@ -1,0 +1,20 @@
+class Solution {
+    int max = 0;
+
+    public int longestZigZag(TreeNode root) {
+        dfs(root, 0, 0);
+        return max;
+    }
+
+    private void dfs(TreeNode node, int left, int right) {
+        if (node == null) return;
+
+        max = Math.max(max, Math.max(left, right));
+
+        // If we go left, next move must be right
+        dfs(node.left, 0, left + 1);
+
+        // If we go right, next move must be left
+        dfs(node.right, right + 1, 0);
+    }
+}
